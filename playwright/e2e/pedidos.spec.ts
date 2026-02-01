@@ -26,7 +26,7 @@ test('Deve consultar um pedido aprovado - desafio', async ({ page }) => {
     // Arrange
     const idPedido = 'VLO-0K831N';
     const statusEsperado = 'APROVADO';
-    const numeroPedido = page.getByText('Pedido').locator(`//../p[text()="${idPedido}"]`);
+    const numeroPedido = page.getByText(idPedido, { exact: true });
     const statusPedido = page.locator('//div[starts-with(@class, "flex items-center gap-2")]');
 
     await page.goto('');
