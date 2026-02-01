@@ -30,7 +30,7 @@ test('Deve consultar um pedido aprovado - desafio', async ({ page }) => {
     await page.getByRole('link', { name: 'Consultar Pedido' }).click();
     await expect(page.getByRole('heading', { name: 'Consultar Pedido' })).toBeVisible();
 
-    // Act
+    // Act 
     await page.getByLabel('Número do Pedido').fill(numeroDoPedido);
     await page.getByRole('button', { name: 'Buscar Pedido' }).click();
 
