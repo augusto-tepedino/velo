@@ -108,7 +108,7 @@ test.describe('Consulta de Pedido', () => {
                 email: 'rsara@test.com',
             },
             payment: 'À Vista',
-            store: '',
+            store: 'Velô Faria Lima - Av. Faria Lima, 2500',
             data: '07/02/2026',
         }
 
@@ -181,7 +181,7 @@ test.describe('Consulta de Pedido', () => {
                 email: 'analizando@google.com',
             },
             payment: 'Financiamento 12x',
-            store: null,
+            store: 'Velô Morumbi - Av. Morumbi, 1500',
             data: '08/02/2026',
         }
 
@@ -219,7 +219,7 @@ test.describe('Consulta de Pedido', () => {
             - paragraph: Email
             - paragraph: ${order.customer.email}
             - paragraph: Loja de Retirada
-            - paragraph
+            - paragraph: ${order.store}
             - paragraph: Data do Pedido
             - paragraph: ${order.data}
             - heading "Pagamento" [level=4]
