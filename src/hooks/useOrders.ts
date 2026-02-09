@@ -48,7 +48,7 @@ function dbOrderToOrder(dbOrder: DbOrder): Order {
       email: dbOrder.customer_email,
       phone: dbOrder.customer_phone,
       cpf: dbOrder.customer_cpf,
-      store: dbOrder.store ?? '',
+      store: dbOrder.store,
     },
     paymentMethod: dbOrder.payment_method as 'avista' | 'financiamento',
     status: dbOrder.status as 'APROVADO' | 'REPROVADO' | 'EM_ANALISE',
