@@ -21,9 +21,8 @@ test.describe('Consulta de Pedido', () => {
     test('Deve consultar um pedido aprovado', async ({ page }) => {
 
         // Test Data
-        //const order = 'VLO-0K831N';
         const order = {
-            number: 'VLO-0K831N',
+            number: 'VLO-4D8XMN',
             status: {
                 value: 'APROVADO',
                 backgroundColor: 'bg-green-100',
@@ -33,18 +32,18 @@ test.describe('Consulta de Pedido', () => {
             color: 'Glacier Blue',
             wheels: 'aero Wheels',
             customer: {
-                name: 'Augusto Martins',
-                email: 'test@test.com',
+                name: 'Augusto Teste Loja',
+                email: 'testeloja@test.com',
             },
             payment: 'À Vista',
-            data: '30/01/2026',
+            store: 'Velô Paulista - Av. Paulista, 1000',
+            data: '09/02/2026',
+
         }
 
         //Locators
         const consultarPedidoTetxfield = page.getByTestId('search-order-id');
         const buscarPedidoButton = page.getByTestId('search-order-button');
-        const numeroPedidoEncontradoText = page.getByTestId('order-result-id');
-        const statusPedidoText = page.getByTestId('order-result-status');
 
         // Act
         await consultarPedidoTetxfield.fill(order.number);
@@ -74,7 +73,7 @@ test.describe('Consulta de Pedido', () => {
             - paragraph: Email
             - paragraph: ${order.customer.email}
             - paragraph: Loja de Retirada
-            - paragraph
+            - paragraph: ${order.store}
             - paragraph: Data do Pedido
             - paragraph: ${order.data}
             - heading "Pagamento" [level=4]
@@ -109,6 +108,7 @@ test.describe('Consulta de Pedido', () => {
                 email: 'rsara@test.com',
             },
             payment: 'À Vista',
+            store: '',
             data: '07/02/2026',
         }
 
@@ -146,7 +146,7 @@ test.describe('Consulta de Pedido', () => {
             - paragraph: Email
             - paragraph: ${order.customer.email}
             - paragraph: Loja de Retirada
-            - paragraph
+            - paragraph: ${order.store}
             - paragraph: Data do Pedido
             - paragraph: ${order.data}
             - heading "Pagamento" [level=4]
@@ -181,6 +181,7 @@ test.describe('Consulta de Pedido', () => {
                 email: 'analizando@google.com',
             },
             payment: 'Financiamento 12x',
+            store: null,
             data: '08/02/2026',
         }
 
