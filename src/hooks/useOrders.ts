@@ -16,6 +16,7 @@ export interface DbOrder {
   status: string;
   created_at: string;
   updated_at: string;
+  store?: string;
 }
 
 function generateOrderNumber(): string {
@@ -47,7 +48,7 @@ function dbOrderToOrder(dbOrder: DbOrder): Order {
       email: dbOrder.customer_email,
       phone: dbOrder.customer_phone,
       cpf: dbOrder.customer_cpf,
-      store: '',
+      store: dbOrder.store,
     },
     paymentMethod: dbOrder.payment_method as 'avista' | 'financiamento',
     status: dbOrder.status as 'APROVADO' | 'REPROVADO' | 'EM_ANALISE',
@@ -85,6 +86,7 @@ export async function createOrder(orderData: {
       payment_method: orderData.paymentMethod,
       total_price: orderData.totalPrice,
       status: orderData.status,
+      store: orderData.customer.store,
     })
     .select()
     .single();
@@ -94,10 +96,7 @@ export async function createOrder(orderData: {
     return { order: null, error: error.message };
   }
 
-  const order = dbOrderToOrder(data as DbOrder);
-  order.customer.store = orderData.customer.store;
-
-  return { order, error: null };
+  return { order: dbOrderToOrder(data as DbOrder), error: null };
 }
 
 export async function getOrderByNumber(orderNumber: string): Promise<{ order: Order | null; error: string | null }> {
