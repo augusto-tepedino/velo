@@ -5,7 +5,6 @@ import { generateOrderCode } from '../support/helpers';
 
 test.describe('Consulta de Pedido', () => {
 
-
     test.beforeEach(async ({ page }) => {
         const veloSprintText = page.getByTestId('hero-section').getByRole('heading');
         const consultarPedidoLink = page.getByRole('link', { name: 'Consultar Pedido' });
@@ -25,7 +24,12 @@ test.describe('Consulta de Pedido', () => {
         //const order = 'VLO-0K831N';
         const order = {
             number: 'VLO-0K831N',
-            status: 'APROVADO',
+            status: {
+                value: 'APROVADO',
+                backgroundColor: 'bg-green-100',
+                textColor: 'text-green-700',
+                icon: 'lucide-circle-check-big',
+            },
             color: 'Glacier Blue',
             wheels: 'aero Wheels',
             customer: {
@@ -51,8 +55,9 @@ test.describe('Consulta de Pedido', () => {
             - img
             - paragraph: Pedido
             - paragraph: ${order.number}
-            - img
-            - text: ${order.status}
+            - status:
+                - img
+                - text: ${order.status.value}
 
             - img "Velô Sprint"
             - paragraph: Modelo
@@ -76,15 +81,27 @@ test.describe('Consulta de Pedido', () => {
             - paragraph: À Vista
             - paragraph: /R\\$ \\d+\\.\\d+,\\d+/
             `);
+
+        const statusBadge = page.getByRole('status').filter({ hasText: order.status.value })
+        await expect(statusBadge).toContainClass(order.status.backgroundColor);
+        await expect(statusBadge).toContainClass(order.status.textColor);
+
+        const statusIcon = statusBadge.locator('svg');
+        await expect(statusIcon).toContainClass(order.status.icon);
+
     });
 
     test('Deve consultar um pedido rejeitado', async ({ page }) => {
 
         // Test Data
-        //const order = 'VLO-D5F5FB';
         const order = {
             number: 'VLO-D5F5FB',
-            status: 'REJEITADO',
+            status: {
+                value: 'REJEITADO',
+                backgroundColor: 'bg-red-100',
+                textColor: 'text-red-700',
+                icon: 'lucide-circle-x',
+            },
             color: 'Lunar White',
             wheels: 'sport Wheels',
             customer: {
@@ -110,8 +127,9 @@ test.describe('Consulta de Pedido', () => {
             - img
             - paragraph: Pedido
             - paragraph: ${order.number}
-            - img
-            - text: ${order.status}
+            - status:
+                - img
+                - text: ${order.status.value}
 
             - img "Velô Sprint"
             - paragraph: Modelo
@@ -134,8 +152,14 @@ test.describe('Consulta de Pedido', () => {
             - heading "Pagamento" [level=4]
             - paragraph: À Vista
             - paragraph: /R\\$ \\d+\\.\\d+,\\d+/
-
             `);
+
+        const statusBadge = page.getByRole('status').filter({ hasText: order.status.value })
+        await expect(statusBadge).toContainClass(order.status.backgroundColor);
+        await expect(statusBadge).toContainClass(order.status.textColor);
+
+        const statusIcon = statusBadge.locator('svg');
+        await expect(statusIcon).toContainClass(order.status.icon);
     });
 
     test('Deve consultar um pedido em analise', async ({ page }) => {
@@ -144,7 +168,12 @@ test.describe('Consulta de Pedido', () => {
         //const order = 'VLO-D5F5FB';
         const order = {
             number: 'VLO-RNUT70',
-            status: 'EM_ANALISE',
+            status: {
+                value: 'EM_ANALISE',
+                backgroundColor: 'bg-amber-100',
+                textColor: 'text-amber-700',
+                icon: 'lucide-clock-icon',
+            },
             color: 'Midnight Black',
             wheels: 'sport Wheels',
             customer: {
@@ -170,8 +199,9 @@ test.describe('Consulta de Pedido', () => {
             - img
             - paragraph: Pedido
             - paragraph: ${order.number}
-            - img
-            - text: ${order.status}
+            - status:
+                - img
+                - text: ${order.status.value}
 
             - img "Velô Sprint"
             - paragraph: Modelo
@@ -194,8 +224,14 @@ test.describe('Consulta de Pedido', () => {
             - heading "Pagamento" [level=4]
             - paragraph: ${order.payment}
             - paragraph: /R\\$ \\d+\\.\\d+,\\d+/
-
             `);
+
+        const statusBadge = page.getByRole('status').filter({ hasText: order.status.value })
+        await expect(statusBadge).toContainClass(order.status.backgroundColor);
+        await expect(statusBadge).toContainClass(order.status.textColor);
+
+        const statusIcon = statusBadge.locator('svg');
+        await expect(statusIcon).toContainClass(order.status.icon);
     });
 
     test('Deve exibir mensagem quando o pedido não é encontrado', async ({ page }) => {

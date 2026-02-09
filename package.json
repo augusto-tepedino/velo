@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "ui": "playwright test --ui",
     "cgen": "playwright codegen http://localhost:5173/"
-    //git remote set-url origin git@github.com-pessoal:augusto-tepedino/velo.git
+
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
