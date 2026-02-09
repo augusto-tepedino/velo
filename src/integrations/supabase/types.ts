@@ -27,6 +27,7 @@ export type Database = {
           order_number: string
           payment_method: string
           status: string
+          store: string
           total_price: number
           updated_at: string
           wheel_type: string
@@ -43,6 +44,7 @@ export type Database = {
           order_number: string
           payment_method: string
           status?: string
+          store?: string
           total_price: number
           updated_at?: string
           wheel_type: string
@@ -59,6 +61,7 @@ export type Database = {
           order_number?: string
           payment_method?: string
           status?: string
+          store?: string
           total_price?: number
           updated_at?: string
           wheel_type?: string
