@@ -21,15 +21,22 @@ test.describe('Consulta de Pedido', () => {
     // Test Data
     const order = {
       number: 'VLO-4D8XMN',
-      status: 'APROVADO',
+      status: {
+          value: 'APROVADO',
+          backgroundColor: 'bg-green-100',
+          textColor: 'text-green-700',
+          icon: 'lucide-circle-check-big',
+      },
       color: 'Glacier Blue',
       wheels: 'aero Wheels',
       customer: {
-        name: 'Augusto Teste Loja',
-        email: 'testeloja@test.com',
+          name: 'Augusto Teste Loja',
+          email: 'testeloja@test.com',
       },
       payment: 'À Vista',
-    }
+      store: 'Velô Paulista - Av. Paulista, 1000',
+      data: '09/02/2026',
+  }
 
     // Act
     const orderLockup = new OrderLockupPage(page)
@@ -58,7 +65,7 @@ test.describe('Consulta de Pedido', () => {
       - paragraph: Email
       - paragraph: ${order.customer.email}
       - paragraph: Loja de Retirada
-      - paragraph
+      - paragraph: ${order.store}
       - paragraph: Data do Pedido
       - paragraph: /\\d+\\/\\d+\\/\\d+/
       - heading "Pagamento" [level=4]
@@ -66,13 +73,12 @@ test.describe('Consulta de Pedido', () => {
       - paragraph: /R\\$ \\d+\\.\\d+,\\d+/
       `);
 
-    const statusBadge = page.getByRole('status').filter({ hasText: order.status })
+      const statusBadge = page.getByRole('status').filter({ hasText: order.status.value })
+      await expect(statusBadge).toContainClass(order.status.backgroundColor);
+      await expect(statusBadge).toContainClass(order.status.textColor);
 
-    await expect(statusBadge).toHaveClass(/bg-green-100/)
-    await expect(statusBadge).toHaveClass(/text-green-700/)
-
-    const statusIcon = statusBadge.locator('svg')
-    await expect(statusIcon).toHaveClass(/lucide-circle-check-big/)
+      const statusIcon = statusBadge.locator('svg');
+      await expect(statusIcon).toContainClass(order.status.icon);
 
   })
 
@@ -81,15 +87,22 @@ test.describe('Consulta de Pedido', () => {
     // Test Data
     const order = {
       number: 'VLO-D5F5FB',
-      status: 'REJEITADO',
+      status: {
+          value: 'REJEITADO',
+          backgroundColor: 'bg-red-100',
+          textColor: 'text-red-700',
+          icon: 'lucide-circle-x',
+      },
       color: 'Lunar White',
       wheels: 'sport Wheels',
       customer: {
-        name: 'rasras rasrar',
-        email: 'rsara@test.com',
+          name: 'rasras rasrar',
+          email: 'rsara@test.com',
       },
       payment: 'À Vista',
-    }
+      store: 'Velô Faria Lima - Av. Faria Lima, 2500',
+      data: '07/02/2026',
+  }
 
     // Act
     const orderLockup = new OrderLockupPage(page)
@@ -118,7 +131,7 @@ test.describe('Consulta de Pedido', () => {
       - paragraph: Email
       - paragraph: ${order.customer.email}
       - paragraph: Loja de Retirada
-      - paragraph
+      - paragraph: ${order.store}
       - paragraph: Data do Pedido
       - paragraph: /\\d+\\/\\d+\\/\\d+/
       - heading "Pagamento" [level=4]
@@ -126,13 +139,12 @@ test.describe('Consulta de Pedido', () => {
       - paragraph: /R\\$ \\d+\\.\\d+,\\d+/
       `);
 
-    const statusBadge = page.getByRole('status').filter({ hasText: order.status })
+      const statusBadge = page.getByRole('status').filter({ hasText: order.status.value })
+      await expect(statusBadge).toContainClass(order.status.backgroundColor);
+      await expect(statusBadge).toContainClass(order.status.textColor);
 
-    await expect(statusBadge).toHaveClass(/bg-red-100/)
-    await expect(statusBadge).toHaveClass(/text-red-700/)
-
-    const statusIcon = statusBadge.locator('svg')
-    await expect(statusIcon).toHaveClass(/lucide-circle-x/)
+      const statusIcon = statusBadge.locator('svg');
+      await expect(statusIcon).toContainClass(order.status.icon);
   })
 
   test('deve consultar um pedido em analise', async ({ page }) => {
@@ -140,15 +152,22 @@ test.describe('Consulta de Pedido', () => {
     // Test Data
     const order = {
       number: 'VLO-RNUT70',
-      status: 'EM_ANALISE',
+      status: {
+          value: 'EM_ANALISE',
+          backgroundColor: 'bg-amber-100',
+          textColor: 'text-amber-700',
+          icon: 'lucide-clock-icon',
+      },
       color: 'Midnight Black',
       wheels: 'sport Wheels',
       customer: {
-        name: 'Teste analizando',
-        email: 'analizando@google.com',
+          name: 'Teste analizando',
+          email: 'analizando@google.com',
       },
       payment: 'Financiamento 12x',
-    }
+      store: 'Velô Morumbi - Av. Morumbi, 1500',
+      data: '08/02/2026',
+  }
 
     // Act
     const orderLockup = new OrderLockupPage(page)
@@ -177,7 +196,7 @@ test.describe('Consulta de Pedido', () => {
       - paragraph: Email
       - paragraph: ${order.customer.email}
       - paragraph: Loja de Retirada
-      - paragraph
+      - paragraph: ${order.store}
       - paragraph: Data do Pedido
       - paragraph: /\\d+\\/\\d+\\/\\d+/
       - heading "Pagamento" [level=4]
@@ -185,13 +204,12 @@ test.describe('Consulta de Pedido', () => {
       - paragraph: /R\\$ \\d+\\.\\d+,\\d+/
       `);
 
-    const statusBadge = page.getByRole('status').filter({ hasText: order.status })
+      const statusBadge = page.getByRole('status').filter({ hasText: order.status.value })
+      await expect(statusBadge).toContainClass(order.status.backgroundColor);
+      await expect(statusBadge).toContainClass(order.status.textColor);
 
-    await expect(statusBadge).toHaveClass(/bg-amber-100/)
-    await expect(statusBadge).toHaveClass(/text-amber-700/)
-
-    const statusIcon = statusBadge.locator('svg')
-    await expect(statusIcon).toHaveClass(/lucide-clock/)
+      const statusIcon = statusBadge.locator('svg');
+      await expect(statusIcon).toContainClass(order.status.icon);
   })
 
   test('deve exibir mensagem quando o pedido não é encontrado', async ({ page }) => {
