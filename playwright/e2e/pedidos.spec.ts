@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 import { generateOrderCode } from '../support/helpers'
 
-import { OrderLockupPage } from '../support/pages/OrderLockupPage'
+import { OrderDetails, OrderLockupPage } from '../support/pages/OrderLockupPage'
 
 /// AAA - Arrange, Act, Assert
 
@@ -20,9 +20,9 @@ test.describe('Consulta de Pedido', () => {
   test('deve consultar um pedido aprovado', async ({ page }) => {
 
     // Test Data
-    const order = {
+    const order: OrderDetails = {
       number: 'VLO-4D8XMN',
-      status: 'APROVADO' as const,
+      status: 'APROVADO',
       color: 'Glacier Blue',
       wheels: 'aero Wheels',
       customer: {
@@ -36,16 +36,21 @@ test.describe('Consulta de Pedido', () => {
     const orderLockupPage = new OrderLockupPage(page)
     await orderLockupPage.searchOrder(order.number)
 
-    // Assert - validação encapsulada
+    // Assert
     await orderLockupPage.validateOrderDetails(order)
+
+
+    // Validação do badge de status encapsulada no Page Object
+    await orderLockupPage.validateStatusBadge(order.status)
+
   })
 
   test('deve consultar um pedido reprovado', async ({ page }) => {
 
     // Test Data
-    const order = {
+    const order: OrderDetails = {
       number: 'VLO-D5F5FB',
-      status: 'REPROVADO' as const,
+      status: 'REPROVADO',
       color: 'Lunar White',
       wheels: 'sport Wheels',
       customer: {
@@ -59,16 +64,19 @@ test.describe('Consulta de Pedido', () => {
     const orderLockupPage = new OrderLockupPage(page)
     await orderLockupPage.searchOrder(order.number)
 
-    // Assert - validação encapsulada
+    // Assert
     await orderLockupPage.validateOrderDetails(order)
+
+    // Validação do badge de status encapsulada no Page Object
+    await orderLockupPage.validateStatusBadge(order.status)
   })
 
   test('deve consultar um pedido em analise', async ({ page }) => {
 
     // Test Data
-    const order = {
+    const order: OrderDetails = {
       number: 'VLO-RNUT70',
-      status: 'EM_ANALISE' as const,
+      status: 'EM_ANALISE',
       color: 'Midnight Black',
       wheels: 'sport Wheels',
       customer: {
@@ -82,8 +90,11 @@ test.describe('Consulta de Pedido', () => {
     const orderLockupPage = new OrderLockupPage(page)
     await orderLockupPage.searchOrder(order.number)
 
-    // Assert - validação encapsulada
+    // Assert
     await orderLockupPage.validateOrderDetails(order)
+
+    // Validação do badge de status encapsulada no Page Object
+    await orderLockupPage.validateStatusBadge(order.status)
   })
 
   test('deve exibir mensagem quando o pedido não é encontrado', async ({ page }) => {
@@ -93,12 +104,16 @@ test.describe('Consulta de Pedido', () => {
     const orderLockupPage = new OrderLockupPage(page)
     await orderLockupPage.searchOrder(order)
 
+    await orderLockupPage.validateOrderNotFound()
 
-    await expect(page.locator('#root')).toMatchAriaSnapshot(`
-      - img
-      - heading "Pedido não encontrado" [level=3]
-      - paragraph: Verifique o número do pedido e tente novamente
-      `)
+  })
+
+  test('deve exibir mensagem quando o pedidoem qualuer formato não é encontrado', async ({ page }) => {
+
+    const orderLockupPage = new OrderLockupPage(page)
+    await orderLockupPage.searchOrder('ABC123')
+
+    await orderLockupPage.validateOrderNotFound()
 
   })
 })
