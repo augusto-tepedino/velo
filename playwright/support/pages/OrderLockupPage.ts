@@ -20,6 +20,10 @@ export class OrderLockupPage {
 
     constructor(private page: Page) { }
 
+    async assertPageLoaded() {
+        await expect(this.page.getByRole('heading')).toContainText('Consultar Pedido')
+    }
+
     async searchOrder(code: string) {
         await this.page.getByRole('textbox', { name: 'Número do Pedido' }).fill(code)
         await this.page.getByRole('button', { name: 'Buscar Pedido' }).click()
