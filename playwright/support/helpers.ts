@@ -1,14 +1,14 @@
 import { Page } from '@playwright/test'
 
 export const generateOrderCode = () => {
-  const prefix = 'VLO-';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = '';
+  const prefix = 'VLO-'
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  let result = ''
 
   for (let i = 0; i < 6; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    result += characters.charAt(randomIndex);
+    const randomIndex = Math.floor(Math.random() * characters.length)
+    result += characters.charAt(randomIndex)
   }
 
-  return prefix + result;
-};
+  return prefix + result
+}
