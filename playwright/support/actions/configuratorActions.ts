@@ -1,6 +1,8 @@
 import { Page, expect } from '@playwright/test'
 
 export function createConfiguratorActions(page: Page) {
+  const checkbox = (name: string) => page.getByRole('checkbox', { name })
+
   return {
     async open() {
       await page.goto('/configure')
@@ -23,6 +25,18 @@ export function createConfiguratorActions(page: Page) {
     async expectCarImageSrc(src: string) {
       const carImage = page.locator('img[alt^="Velô Sprint"]')
       await expect(carImage).toHaveAttribute('src', src)
+    },
+
+    async checkOptional(name: string) {
+      await checkbox(name).check()
+    },
+
+    async uncheckOptional(name: string) {
+      await checkbox(name).uncheck()
+    },
+
+    async clickCheckout() {
+      await page.getByRole('button', { name: 'Finalizar' }).click()
     },
   }
 }
