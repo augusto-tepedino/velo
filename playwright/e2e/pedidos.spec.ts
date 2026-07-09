@@ -9,13 +9,13 @@ test.describe('Consulta de Pedido', () => {
 
   test('deve consultar um pedido aprovado', async ({ app }) => {
     const order: OrderDetails = {
-      number: 'VLO-6E2J20',
+      number: 'VLO-4D8XMN',
       status: 'APROVADO',
-      color: 'Lunar White',
+      color: 'Glacier Blue',
       wheels: 'aero Wheels',
       customer: {
-        name: 'Fernando Papito',
-        email: 'papito@velo.dev',
+        name: 'Augusto Teste Loja',
+        email: 'testeloja@test.com',
       },
       payment: 'À Vista',
     }
@@ -27,13 +27,13 @@ test.describe('Consulta de Pedido', () => {
 
   test('deve consultar um pedido reprovado', async ({ app }) => {
     const order: OrderDetails = {
-      number: 'VLO-0LNFEA',
+      number: 'VLO-D5F5FB',
       status: 'REPROVADO',
-      color: 'Midnight Black',
+      color: 'Lunar White',
       wheels: 'sport Wheels',
       customer: {
-        name: 'Steve Jobs',
-        email: 'jobs@apple.com',
+        name: 'rasras rasrar',
+        email: 'rsara@test.com',
       },
       payment: 'À Vista',
     }
@@ -45,15 +45,15 @@ test.describe('Consulta de Pedido', () => {
 
   test('deve consultar um pedido em analise', async ({ app }) => {
     const order: OrderDetails = {
-      number: 'VLO-412O06',
+      number: 'VLO-RNUT70',
       status: 'EM_ANALISE',
-      color: 'Lunar White',
-      wheels: 'aero Wheels',
+      color: 'Midnight Black',
+      wheels: 'sport Wheels',
       customer: {
-        name: 'João da Silva',
-        email: 'joao@velo.dev',
+        name: 'Teste analizando',
+        email: 'analizando@google.com',
       },
-      payment: 'À Vista',
+      payment: 'Financiamento 12x',
     }
 
     await app.orderLookup.searchOrder(order.number)
