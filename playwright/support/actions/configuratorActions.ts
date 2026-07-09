@@ -36,7 +36,7 @@ export function createConfiguratorActions(page: Page) {
     },
 
     async clickCheckout() {
-      await page.getByRole('button', { name: 'Finalizar' }).click()
+      await page.getByRole('button', { name: 'Monte o Seu' }).click()
     },
   }
 }
