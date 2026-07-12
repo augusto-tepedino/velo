@@ -3,7 +3,7 @@ import { test as base } from '@playwright/test'
 import { createCheckoutActions } from './actions/checkoutActions'
 import { createConfiguratorActions } from './actions/configuratorActions'
 import { createOrderLookupActions } from './actions/orderLookupActions'
-import { createMockActions } from './actions/mockActions'
+import { createMockActions } from './mock.api'
 import { createHeroActions } from './actions/heroActions'
 
 type App = {
