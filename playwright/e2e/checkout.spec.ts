@@ -4,8 +4,6 @@ import { deleteOrderByEmail } from '../support/database/orderRepository'
 
 test.describe('Checkout', () => {
 
-
-
   test.describe('Validações de campos obrigatórios', () => {
 
     let alerts: any
@@ -176,6 +174,7 @@ test.describe('Checkout', () => {
       }
 
       await deleteOrderByEmail(customer.email)
+
       await app.mock.creditAnalysis(710)
 
       // Arrange
@@ -209,6 +208,7 @@ test.describe('Checkout', () => {
       }
 
       await deleteOrderByEmail(customer.email)
+
       await app.mock.creditAnalysis(600)
 
       // Arrange
@@ -242,6 +242,7 @@ test.describe('Checkout', () => {
       }
 
       await deleteOrderByEmail(customer.email)
+
       await app.mock.creditAnalysis(500)
 
       // Arrange
@@ -276,6 +277,7 @@ test.describe('Checkout', () => {
       }
 
       await deleteOrderByEmail(customer.email)
+
       await app.mock.creditAnalysis(500)
 
       // Arrange
