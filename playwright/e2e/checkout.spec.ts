@@ -124,13 +124,9 @@ test.describe('Checkout', () => {
 
   test.describe('Pagamento e Confirmação', () => {
 
-    test.beforeEach(async ({ page, app }) => {
-      await page.goto('/')
-      await page.getByRole('link', { name: /Configure Agora/i }).click()
-
-      await app.configurator.expectPrice('R$ 40.000,00')
-      await app.configurator.finishConfigurator()
-      await app.checkout.expectLoaded()
+    test.beforeEach(async ({ app }) => {
+      await app.hero.open()
+      await app.hero.goToConfigurator()
     })
 
     test('deve criar um pedido com sucesso para pagamento à vista', async ({ app }) => {
@@ -149,6 +145,10 @@ test.describe('Checkout', () => {
       await deleteOrderByEmail(customer.email)
 
       // Arrange
+      await app.configurator.expectPrice(customer.totalPrice)
+      await app.configurator.finishConfigurator()
+      await app.checkout.expectLoaded()
+
       await app.checkout.fillCustomerlData(customer)
       await app.checkout.selectStore(customer.store)
 
@@ -176,10 +176,13 @@ test.describe('Checkout', () => {
       }
 
       await deleteOrderByEmail(customer.email)
-
       await app.mock.creditAnalysis(710)
 
       // Arrange
+      await app.configurator.expectPrice(customer.totalPrice)
+      await app.configurator.finishConfigurator()
+      await app.checkout.expectLoaded()
+
       await app.checkout.fillCustomerlData(customer)
       await app.checkout.selectStore(customer.store)
 
@@ -206,10 +209,13 @@ test.describe('Checkout', () => {
       }
 
       await deleteOrderByEmail(customer.email)
-
       await app.mock.creditAnalysis(600)
 
       // Arrange
+      await app.configurator.expectPrice(customer.totalPrice)
+      await app.configurator.finishConfigurator()
+      await app.checkout.expectLoaded()
+
       await app.checkout.fillCustomerlData(customer)
       await app.checkout.selectStore(customer.store)
 
@@ -236,10 +242,13 @@ test.describe('Checkout', () => {
       }
 
       await deleteOrderByEmail(customer.email)
-
       await app.mock.creditAnalysis(500)
 
       // Arrange
+      await app.configurator.expectPrice(customer.totalPrice)
+      await app.configurator.finishConfigurator()
+      await app.checkout.expectLoaded()
+
       await app.checkout.fillCustomerlData(customer)
       await app.checkout.selectStore(customer.store)
 
@@ -267,10 +276,13 @@ test.describe('Checkout', () => {
       }
 
       await deleteOrderByEmail(customer.email)
-
       await app.mock.creditAnalysis(500)
 
       // Arrange
+      await app.configurator.expectPrice(customer.totalPrice)
+      await app.configurator.finishConfigurator()
+      await app.checkout.expectLoaded()
+
       await app.checkout.fillCustomerlData(customer)
       await app.checkout.selectStore(customer.store)
 
