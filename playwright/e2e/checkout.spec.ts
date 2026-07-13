@@ -124,7 +124,6 @@ test.describe('Checkout', () => {
 
     test.beforeEach(async ({ app }) => {
       await app.hero.open()
-      await app.hero.goToConfigurator()
     })
 
     test('deve criar um pedido com sucesso para pagamento à vista', async ({ app }) => {
