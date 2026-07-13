@@ -41,11 +41,11 @@ jobs:
       - name: Run unit tests
         run: yarn test
   build-and-deploy:
-  name: build & deploy vercel Preview
-  needs: [unit-tests]
-  runs-on: ubuntu-latest
+    name: build & deploy vercel Preview
+    needs: [unit-tests]
+    runs-on: ubuntu-latest
 
-  steps:
+    steps:
       # Obtém o código-fonte do repositório.
       - name: Checkout repository
         uses: actions/checkout@v7.0.0
