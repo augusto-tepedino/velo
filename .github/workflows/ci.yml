@@ -9,11 +9,11 @@ on:
       - main
 
 env:
-  NODE_VERSION: '24'
+  NODE_VERSION: "24"
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_SCOPE: ${{ secrets.VERCEL_SCOPE }}
+  VERCEL_SCOPE: augustotepedino-6354s-projects
 
 jobs:
   unit-tests:
@@ -85,10 +85,10 @@ jobs:
           echo "deployment-url=$URL" >> $GITHUB_OUTPUT
 
   e2e-tests:
-    name: run E2E Tests
+    name: Run E2E Tests
     needs: [build-and-deploy]
     runs-on: ubuntu-latest
-    
+
     steps:
       # 1. Obtém o código-fonte do repositório.
       - name: Checkout repository
@@ -115,7 +115,7 @@ jobs:
       # 6. Executa testes de Regressão
       - name: Run E2E Regression
         run: yarn playwright test playwright/e2e/online.spec.ts
-        env: 
+        env:
           BASE_URL: ${{ needs.build-and-deploy.outputs.deployment-url }}
 
       # 7. relatorio de testes automatizados
