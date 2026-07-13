@@ -85,7 +85,7 @@ jobs:
           echo "deployment-url=$URL" >> $GITHUB_OUTPUT
 
   e2e tests:
-    name: RUN E2E Tests
+    name: run E2E Tests
     needs: [build-and-deploy]
     runs-on: ubuntu-latest
     
