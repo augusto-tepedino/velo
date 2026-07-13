@@ -11,6 +11,8 @@ on:
 env:
   NODE_VERSION: '24'
   VERCEL_TOKEN: ${{ SECRETS.VERCEL_TOKENS }}
+  VERCEL_PROJECT_ID: prj_LPtbW41nH3wcAHlOeOi6NMLvohem
+  VERCEL_ORG_ID: team_OnwrN4rxTPz3XpePXKUV6TAq
   VERCEL_SCOPE: augustotepedino-6354s-projects
 
 jobs:
