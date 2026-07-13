@@ -37,18 +37,18 @@ Refatorar a estrutura removendo classes e heranças, substituindo por:
 ### Exemplo de Action esperada:
 ```ts
 // support/actions/loginActions.ts
-import { Page } from '@playwright/test';
+import { Page } from '@playwright/test'
 
 export function createLoginActions(page: Page) {
   return {
     async fillCredentials(email: string, password: string) {
-      await page.locator('[data-testid="password"]').fill(email);
-      await page.locator('[data-testid="submit"]').fill(password);
+      await page.locator('[data-testid="password"]').fill(email)
+      await page.locator('[data-testid="submit"]').fill(password)
     },
     async submit() {
-      await page.locator('[data-testid="submit"]').click();
+      await page.locator('[data-testid="submit"]').click()
     },
-  };
+  }
 }
 ```
 
@@ -61,38 +61,38 @@ export function createLoginActions(page: Page) {
 ### Exemplo de Fixture esperada:
 ```ts
 // support/fixtures.ts
-import { test as base } from '@playwright/test';
-import { createLoginActions } from './actions/loginActions';
-import { createDashboardActions } from './actions/dashboardActions';
+import { test as base } from '@playwright/test'
+import { createLoginActions } from './actions/loginActions'
+import { createDashboardActions } from './actions/dashboardActions'
 
 type App = {
-  login: ReturnType<typeof createLoginActions>;
-  dashboard: ReturnType<typeof createDashboardActions>;
-};
+  login: ReturnType<typeof createLoginActions>
+  dashboard: ReturnType<typeof createDashboardActions>
+}
 
 export const test = base.extend<{ app: App }>({
   app: async ({ page }, use) => {
     const app: App = {
       login: createLoginActions(page),
       dashboard: createDashboardActions(page),
-    };
-    await use(app);
+    }
+    await use(app)
   },
-});
+})
 
-export { expect } from '@playwright/test';
+export { expect } from '@playwright/test'
 ```
 
 ## Uso no Teste (Resultado Final)
 ```ts
 // specs/login.spec.ts
-import { test, expect } from '../support/fixtures';
+import { test, expect } from '../support/fixtures'
 
 test('deve fazer login com sucesso', async ({ app }) => {
-  await app.login.fillCredentials('user@test.com', '123456');
-  await app.login.submit();
-  await expect(app.dashboard.welcomeMessage).toContainText('Bem-vindo');
-});
+  await app.login.fillCredentials('user@test.com', '123456')
+  await app.login.submit()
+  await expect(app.dashboard.welcomeMessage).toContainText('Bem-vindo')
+})
 ```
 
 ---

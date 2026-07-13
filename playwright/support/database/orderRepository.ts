@@ -6,13 +6,13 @@ import { OrderDetails } from '../actions/orderLookupActions'
 import crypto from 'crypto'
 
 export function normalizeValue(value: string) {
-  if (!value) return '';
+  if (!value) return ''
 
   return value
     .normalize('NFD') // separa acentos
     .replace(/[\u0300-\u036f]/g, '') // remove acentos
     .replace(/\s+/g, '') // remove espaços
-    .toLowerCase(); // lowercase
+    .toLowerCase() // lowercase
 }
 
 export async function insertOrder(order: OrderDetails) {
