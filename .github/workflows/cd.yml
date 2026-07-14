@@ -81,7 +81,7 @@ jobs:
       - name: Build Vercel
         run: yarn vercel build --token=$VERCEL_TOKEN
 
-      # 7. Deploy preview no vercel - problema está aqui
+      # 7. Deploy preview no vercel
       - name: Deploy preview
         id: deploy
         run: |
