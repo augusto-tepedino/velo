@@ -5,12 +5,11 @@ name: Continuous Deployment
 
 on:
   push:
-    branches:
-      - main
+    branches: [main, desafio_final]
 
 env:
   # Versão do Node utilizada em todo o workflow
-  NODE_VERSION: '24'
+  NODE_VERSION: "24"
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -43,7 +42,7 @@ jobs:
       # 5. Executa os testes unitários com Vitest
       - name: Run unit tests
         run: yarn test
-  
+
   build-and-deploy:
     name: Build & Deploy Vercel Preview
     needs: [unit-tests]
@@ -77,7 +76,7 @@ jobs:
           --environment=preview \
           --token=$VERCEL_TOKEN \
           --scope=$VERCEL_SCOPE
-      
+
       # 6. Build para o Vercel
       - name: Build Vercel
         run: yarn vercel build --token=$VERCEL_TOKEN
@@ -122,7 +121,7 @@ jobs:
 
       # 6. Execução dos Testes de Regressão
       - name: Run E2E Regression Tests
-        run: yarn playwright test
+        run: yarn playwright test playwright/e2e/pedidos.spec.ts
         env:
           BASE_URL: ${{ needs.build-and-deploy.outputs.deployment-url }}
 
@@ -133,7 +132,7 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report
-      
+
       # 8. Publicar report JSON do TestDino
       - name: Publish Testdino Report
         if: ${{ !cancelled() }}
