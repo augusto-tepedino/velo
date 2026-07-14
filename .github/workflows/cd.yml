@@ -67,7 +67,7 @@ jobs:
 
       # 4. Instala as dependências do projeto.
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install
 
       # 5. Obter configurações do vercel
       - name: Pull Vercel Config
@@ -88,7 +88,7 @@ jobs:
           URL=$(yarn --silent vercel deploy --prebuilt \
           --target=preview \
           --token=$VERCEL_TOKEN \
-          --scope=$VERCEL_SCOPE) \
+          --scope=$VERCEL_SCOPE) 
           echo "deployment-url=$URL" >> $GITHUB_OUTPUT
 
   e2e-tests:
