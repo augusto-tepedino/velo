@@ -121,7 +121,9 @@ jobs:
 
       # 6. Executa testes de Regressão
       - name: Run E2E Regression
-        run: yarn playwright test
+        run: |
+          yarn playwright test
+          echo "The URL is: ${{ needs.build-and-deploy.outputs.deployment-url }}"
         env:
           BASE_URL: ${{ needs.build-and-deploy.outputs.deployment-url }}
 
@@ -145,4 +147,3 @@ jobs:
           --token=$VERCEL_TOKEN \
           --scope=$VERCEL_SCOPE \
           --yes
-          echo "The deployment URL is: ${{ needs.build-and-deploy.outputs.deployment-url }}"
