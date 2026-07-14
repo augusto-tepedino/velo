@@ -34,3 +34,4 @@ dist-ssr
 
 # Docs
 /docs/db-password.txt
+.env*.local
