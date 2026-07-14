@@ -1,7 +1,7 @@
 # Workflow de Integração Contínua responsável por executar os testes unitários.
 # Estrutura preparada para futuras expansões, mantendo um único job dedicado aos testes.
 
-name: Continuous Integration
+name: Continuous Deployment
 
 on:
   push:
@@ -71,7 +71,10 @@ jobs:
 
       # 5. Obter configurações do vercel
       - name: Pull Vercel Config
-        run: yarn vercel pull --yes --environment=preview --token=$VERCEL_TOKEN --scope=$VERCEL_SCOPE
+        run: yarn vercel pull --yes \
+          --environment=preview \
+          --token=$VERCEL_TOKEN \
+          --scope=$VERCEL_SCOPE
 
       # 6. Build Vercel
       - name: Build Vercel
@@ -81,7 +84,10 @@ jobs:
       - name: Vercel Deploy Preview
         id: deploy
         run: |
-          URL=$(yarn --silent vercel deploy --prebuilt --target=preview --token=$VERCEL_TOKEN --scope=$VERCEL_SCOPE)
+          URL=$(yarn --silent vercel deploy --prebuilt \
+          --target=preview \
+          --token=$VERCEL_TOKEN \
+          --scope=$VERCEL_SCOPE) \
           echo "deployment-url=$URL" >> $GITHUB_OUTPUT
 
   e2e-tests:
@@ -125,3 +131,16 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report
+
+  promote:
+    name: Promote to Production
+    needs: [e2e-tests]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Vercel Promote
+        run: |
+          yarn vercel promote ${{needs.build-and-deploy.outputs.deployment-url}} \
+          --token=$VERCEL_TOKEN \
+          --scope=$VERCEL_SCOPE
