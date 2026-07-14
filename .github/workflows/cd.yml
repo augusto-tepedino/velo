@@ -142,7 +142,6 @@ jobs:
       - name: Vercel Promote
         run: |
           npx vercel@latest promote ${{ needs.build-and-deploy.outputs.deployment-url }} \
-          --prod \
           --token=$VERCEL_TOKEN \
           --scope=$VERCEL_SCOPE \
           --yes
