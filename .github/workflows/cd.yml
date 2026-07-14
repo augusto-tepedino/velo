@@ -121,7 +121,7 @@ jobs:
 
       # 6. Execução dos Testes de Regressão
       - name: Run E2E Regression Tests
-        run: yarn playwright test playwright/e2e/pedidos.spec.ts --project=chromium
+        run: yarn playwright test playwright/e2e/online.spec.ts --project=chromium
         env:
           BASE_URL: ${{ needs.build-and-deploy.outputs.deployment-url }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -141,7 +141,7 @@ jobs:
 
   deploy-production:
     name: Deploy to Production
-    needs: [build-and-deploy, e2e-tests]
+    needs: [e2e-tests]
     runs-on: ubuntu-latest
 
     steps:
@@ -173,7 +173,8 @@ jobs:
 
       # 6. Build para o Vercel
       - name: Build Vercel
-        run: yarn vercel build --prod --token=$VERCEL_TOKEN
+        run: |
+          yarn vercel build --prod --token=$VERCEL_TOKEN
 
       # 7. Deploy production no vercel
       - name: Deploy production
