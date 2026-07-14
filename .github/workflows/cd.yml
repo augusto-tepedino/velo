@@ -117,13 +117,14 @@ jobs:
 
       # 5. Instalação do Chromium
       - name: Install Playwright Browser
-        run: yarn exec playwright install --with-deps chromium
+        run: yarn playwright install --with-deps chromium
 
       # 6. Execução dos Testes de Regressão
       - name: Run E2E Regression Tests
-        run: yarn exec playwright test playwright/e2e/pedidos.spec.ts
+        run: yarn playwright test playwright/e2e/pedidos.spec.ts --project=chromium
         env:
           BASE_URL: ${{ needs.build-and-deploy.outputs.deployment-url }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       # 7. Relatório de Testes Automatizados
       - name: Upload Playwright report
