@@ -173,13 +173,12 @@ jobs:
 
       # 6. Build para o Vercel
       - name: Build Vercel
-        run: yarn vercel build --token=$VERCEL_TOKEN
+        run: yarn vercel build --prod --token=$VERCEL_TOKEN
 
       # 7. Deploy production no vercel
       - name: Deploy production
         id: deploy
         run: |
-          URL=$(yarn --silent vercel deploy --prebuilt --prod \
+          yarn vercel deploy --prebuilt --prod \
           --token=$VERCEL_TOKEN \
-          --scope=$VERCEL_SCOPE)
-          echo "deployment-url=$URL" >> $GITHUB_OUTPUT
+          --scope=$VERCEL_SCOPE
