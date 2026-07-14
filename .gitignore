@@ -31,3 +31,6 @@ dist-ssr
 /playwright/.auth/
 .vercel
 .env*
+
+# data
+docs/db-password.txt
