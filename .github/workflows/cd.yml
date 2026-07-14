@@ -5,7 +5,7 @@ name: Continuous Deployment
 
 on:
   push:
-    branches: [main, desafio_final]
+    branches: [desafio_final]
 
 env:
   # Versão do Node utilizada em todo o workflow
