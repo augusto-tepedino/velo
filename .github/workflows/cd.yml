@@ -179,8 +179,7 @@ jobs:
       - name: Deploy production
         id: deploy
         run: |
-          URL=$(yarn --silent vercel deploy --prebuilt \
-          --target=production \
+          URL=$(yarn --silent vercel deploy --prebuilt --prod \
           --token=$VERCEL_TOKEN \
           --scope=$VERCEL_SCOPE)
           echo "deployment-url=$URL" >> $GITHUB_OUTPUT
